@@ -1,0 +1,8 @@
+# Ignore frontend node_modules
+frontend/node_modules/
+
+# Ignore frontend package-lock.json
+frontend/package-lock.json
+
+# Ignore backend vendors
+backend/vendors/
