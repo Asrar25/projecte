@@ -18,18 +18,25 @@ function Login({ setIsAuthenticated }) {
             email,
             password,
           });
+
+          console.log("UserData 1 :",response);
+
       
           // Assuming the backend returns a token upon successful login
         //   const { token } = response.data;
       
         //   // Store the token in localStorage or any state management library
-        //   localStorage.setItem('authToken', token);
+        if(response.data.status == 'success'){
+          const data = JSON.stringify(response.data.userData);
+          const products = JSON.stringify(response.data.products);
+          localStorage.setItem('userData', data);
+          localStorage.setItem('products', products);
+        }
+        
         toast.success('Login Successfully', {
           position: "top-right",
           autoClose: 1000, // Increase time for toast visibility
         });
-        
-        localStorage.setItem('userEmail', email);
         
         setIsAuthenticated(true);
         

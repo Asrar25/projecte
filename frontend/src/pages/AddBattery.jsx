@@ -16,6 +16,9 @@ function AddBattery() {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
+   const userData = localStorage.getItem("userData");
+  const storedUserData = userData ? JSON.parse(userData) : {};
+
   useEffect(() => {
     axios
       .get('http://localhost:8000/api/categories/get')
@@ -48,17 +51,22 @@ function AddBattery() {
     data.append('price', formData.price);
     data.append('stock_quantity', formData.stock_quantity);
     data.append('category_id', formData.category_id);
+    data.append('userID', storedUserData.id);
     
     if (imageFile) {
       data.append('image', imageFile);
     }
 
     try {
-      await axios.post('http://localhost:8000/api/batteries', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+     const response = await axios.post('http://localhost:8000/api/batteries', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+    const existing = localStorage.getItem("products");
+    const parsed = existing ? JSON.parse(existing) : [];
+      const updatedProducts = [...parsed, response.data.latestAdd];
+      localStorage.setItem("products", JSON.stringify(updatedProducts));
         toast.success('Battery Added Successfully', {
                 position: "top-right",
                 autoClose: 1000, // Increase time for toast visibility

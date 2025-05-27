@@ -11,6 +11,15 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import './App.css';
 import AddCategory from './pages/AddCategory';
+import Cart from './pages/Cart';
+import Profile from './pages/profile';
+import Orders from './pages/Orders';
+import BatteryDetails from './pages/BatteryDetails';
+import MyProduct from './pages/MyProduct';
+import PaymentPage from './pages/PaymentPage';
+import MyOrders from './pages/MyOrder';
+
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,7 +42,14 @@ function App() {
         <Route path="dashboard" element={<Home />} />
         <Route path="batteries" element={<BatteryList />} />
         <Route path="add-battery" element={<AddBattery />} />
+        <Route path="myProduct" element={<MyProduct />} />
         <Route path="add-category" element={<AddCategory />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<MyOrders />} />
+        <Route path="/battery/:id" element={<BatteryDetails />} />
+        <Route path="/payment" element={<PaymentPage />} />
+
       </Route>
     </Routes>
   );

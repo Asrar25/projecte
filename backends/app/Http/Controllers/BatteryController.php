@@ -27,6 +27,7 @@ class BatteryController extends Controller
             'price' => $request->price,
             'stock_quantity' => $request->stock_quantity,
             'category_id' => $request->category_id,
+            'userID' => $request->userID,
             'created_at' => now(),
             'updated_at' => now(),
         ];
@@ -44,7 +45,8 @@ class BatteryController extends Controller
         DB::table('batteries')->insert($data);
 
         return response()->json([
-            'message' => 'Category added successfully.',
+            'message' => 'Battery added successfully.',
+            'latestAdd' => $data
         ], 201);
     }
 
