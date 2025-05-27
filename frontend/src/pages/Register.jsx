@@ -6,6 +6,7 @@ function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [mobileNo, setMobileNo] = useState();
   const [confirmPassword, setConfirmPassword] = useState('');
   const [address, setAddress] = useState('');
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ function Register() {
         name,
         email,
         password,
+        mobileNo,
+        address
       });
   
       if (response.status === 201) {
@@ -67,6 +70,20 @@ function Register() {
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="you@example.com"
+            />
+          </div>
+            <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              Mobile Number *
+            </label>
+            <input
+              id="mobileno"
+              type="number"
+              value={mobileNo}
+              onChange={(e) => setMobileNo(e.target.value)}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Your Mobile No"
             />
           </div>
           <div>
