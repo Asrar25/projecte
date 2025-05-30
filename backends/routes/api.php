@@ -9,6 +9,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\PdfController;
+
 
 
 
@@ -58,6 +60,10 @@ Route::get('/cart/get/{id}', [CartController::class, 'get']);
 Route::post('/orders/add', [OrdersController::class, 'store']);
 
 Route::get('/orders/get/{id}', [OrdersController::class, 'get']);
+
+Route::get('/downloadPdf', [PdfController::class, 'download']);
+
+Route::get('/downloadReceipt/{orderId}/{quantity}/{gstPercent}/{customerID}', [PdfController::class, 'downloadReceipt']);
 
 
 

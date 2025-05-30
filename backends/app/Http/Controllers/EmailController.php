@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\Services\PdfService;
+use Illuminate\Support\Facades\DB;
+
 
 class EmailController extends Controller
 {
@@ -60,4 +63,34 @@ class EmailController extends Controller
             return response()->json(['error' => 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo], 500);
         }
     }
+
+    public function sendReceiptMail($pdfString,$customerID)
+    {
+        $customer = DB::table('users')->where('id', $customerID)->first();
+
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = env('MAIL_USERNAME');
+        $mail->Password = env('MAIL_PASSWORD');
+        $mail->SMTPSecure = env('MAIL_ENCRYPTION');
+        $mail->Port = env('MAIL_PORT');
+
+        $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+        $mail->addAddress($customer->email);
+        $mail->addStringAttachment($pdfString, 'payment_receipt.pdf');
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Your Battery Purchase Receipt';
+        $mail->Body = '<p>Dear ' . $customer->name . ',</p><p>Thank you for your purchase. Please find the payment receipt attached.</p><p>Regards,<br>Battery Store</p>';
+
+        $mail->send();
+    } catch (Exception $e) {
+            return response()->json(['message' => 'Email could not be sent. Error: ' . $mail->ErrorInfo], 500);
+        }
+    }
+
 }

@@ -22,7 +22,7 @@ class AuthController extends Controller
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => $validatedData['password'], // Always hash passwords
-            'mobileNo' => $validatedData['mobileNo'], // Always hash passwords
+            'mobileNo' => $request->mobileNo, // Always hash passwords
             'address' => $validatedData['address'], // Always hash passwords
             'created_at' => now(),
             'updated_at' => now(),

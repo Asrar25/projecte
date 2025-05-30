@@ -219,19 +219,19 @@ function BatteryDetails() {
               <tbody>
                 <tr className="border-t">
                   <td className="py-2 px-4 font-medium">Brand</td>
-                  <td className="py-2 px-4">BatteryCo</td>
+                  <td className="py-2 px-4">{battery.brand}</td>
                 </tr>
                 <tr className="border-t">
                   <td className="py-2 px-4 font-medium">Model</td>
-                  <td className="py-2 px-4">BAT-1234</td>
+                  <td className="py-2 px-4">{battery.model}</td>
                 </tr>
                 <tr className="border-t">
                   <td className="py-2 px-4 font-medium">Capacity</td>
-                  <td className="py-2 px-4">3000mAh</td>
+                  <td className="py-2 px-4">{battery.capacity}</td>
                 </tr>
                 <tr className="border-t">
                   <td className="py-2 px-4 font-medium">Voltage</td>
-                  <td className="py-2 px-4">3.7V</td>
+                  <td className="py-2 px-4">{battery.voltage}</td>
                 </tr>
               </tbody>
             </table>

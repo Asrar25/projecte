@@ -28,6 +28,10 @@ class BatteryController extends Controller
             'stock_quantity' => $request->stock_quantity,
             'category_id' => $request->category_id,
             'userID' => $request->userID,
+            'brand'=>$request->brand,
+            'model'=>$request->model,
+            'capacity'=>$request->capacity,
+            'voltage'=>$request->voltage,
             'created_at' => now(),
             'updated_at' => now(),
         ];

@@ -10,6 +10,10 @@ function AddBattery() {
     price: '',
     stock_quantity: '',
     category_id: '',
+    brand:'',
+    model:'',
+    capacity:'',
+    voltage:''
   });
   const [categories, setCategories] = useState([]);
   const [message, setMessage] = useState('');
@@ -52,6 +56,11 @@ function AddBattery() {
     data.append('stock_quantity', formData.stock_quantity);
     data.append('category_id', formData.category_id);
     data.append('userID', storedUserData.id);
+    data.append('brand', formData.brand);
+    data.append('model', formData.model);
+    data.append('capacity', formData.capacity);
+    data.append('voltage', formData.voltage);
+
     
     if (imageFile) {
       data.append('image', imageFile);
@@ -77,6 +86,10 @@ function AddBattery() {
         price: '',
         stock_quantity: '',
         category_id: '',
+        brand:'',
+        model:'',
+        capacity:'',
+        voltage:''
       });
       setImageFile(null);
       setImagePreview(null);
@@ -88,6 +101,24 @@ function AddBattery() {
       console.error(error);
     }
   };
+
+  const handlePDf = async()=>{ 
+      const response = await axios.get('http://localhost:8000/api/downloadPdf', {
+      responseType: 'blob', // important!
+    });
+
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link to download the file
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'report.pdf'); // or any file name
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  console.log("response :",response);
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200 p-4">
@@ -139,6 +170,54 @@ function AddBattery() {
               type="number"
               name="stock_quantity"
               value={formData.stock_quantity}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+            <div className="mb-4">
+            <label className="block text-gray-700 mb-2">Brand :</label>
+            <input
+              type="text"
+              name="brand"
+              value={formData.brand}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+            <div className="mb-4">
+            <label className="block text-gray-700 mb-2">Model :</label>
+            <input
+              type="text"
+              name="model"
+              value={formData.model}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+            <div className="mb-4">
+            <label className="block text-gray-700 mb-2">Capacity :</label>
+            <input
+              type="text"
+              name="capacity"
+              value={formData.capacity}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+            <div className="mb-4">
+            <label className="block text-gray-700 mb-2">Voltage :</label>
+            <input
+              type="text"
+              name="voltage"
+              value={formData.voltage}
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
